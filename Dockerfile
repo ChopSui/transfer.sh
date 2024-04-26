@@ -12,6 +12,8 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
+ENV GOOS=${GOOS}
+ENV GOARCH=${GOARCH}
 
 # build & install server
 RUN CGO_ENABLED=0 go build -tags netgo -ldflags "-X github.com/dutchcoders/transfer.sh/cmd.Version=$(git describe --tags) -a -s -w -extldflags '-static'" -o /go/bin/transfersh
